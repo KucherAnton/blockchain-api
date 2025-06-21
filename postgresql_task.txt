@@ -1,0 +1,14 @@
+SELECT *
+FROM test_txs
+WHERE block_height >= (
+  SELECT MIN(block_height)
+  FROM (
+    SELECT block_height
+    FROM test_txs
+    ORDER BY block_height DESC, hash
+    LIMIT 10
+  ) AS limited
+)
+ORDER BY block_height DESC;
+
+Проверить можно там же, где было задание https://onecompiler.com/postgresql/43nfasm6f
